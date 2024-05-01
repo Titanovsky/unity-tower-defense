@@ -49,6 +49,8 @@ public class Enemy : MonoBehaviour, IDamagable
 
     private void Update()
     {
+        if (playerTransform == null) return;
+
         transform.LookAt(playerTransform);
 
         float distanceFromPlayer = Vector3.Distance(playerTransform.position, transform.position);
