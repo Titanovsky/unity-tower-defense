@@ -1,7 +1,14 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public static class WaypointHandler 
+public class WaypointHandler : MonoBehaviour
 {
-    public static Color gizmoColor = Color.red;
-	public static float gizmoRadius = 0.22f;
+	public static WaypointHandler Instance;
+
+	[SerializeField] public List<Waypoint> waypoints = new();
+
+	private void Awake()
+	{
+		Instance = this;
+	}
 }

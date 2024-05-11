@@ -4,21 +4,12 @@ using UnityEngine;
 
 public class Waypoint : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public static Color gizmoColor = Color.red;
+	public static float gizmoRadius = 0.22f;
 
 	public void OnDrawGizmos()
 	{
-       Gizmos.color = WaypointHandler.gizmoColor;
-       Gizmos.DrawWireSphere(transform.position, WaypointHandler.gizmoRadius);
+       Gizmos.color = gizmoColor;
+       Gizmos.DrawWireSphere(transform.position, gizmoRadius);
 	}
 }

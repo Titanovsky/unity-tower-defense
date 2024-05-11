@@ -1,19 +1,19 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamagable
 {
-    public float speed;
-    public float lineOfSight;
-    public float shootingRange;
-    public float nextFireTime;
-    public GameObject projectile;
-    public Transform posGeneratorBullets;
-
-	private float fireRate = 1f;
-    private Transform playerTransform;
-
+	#region Vars/Props
 	public float Health { get; set; } = 6f;
 	public float Damage { get; set; } = 1f;
+	public float speed = 0.1f;
+
+    public Waypoint target;
+    private WaypointHandler waypointHandler;
+	private int targetID = 0;
+	#endregion
+
+	#region Logic
 	public void TakeDamage(float dmg)
 	{
 		float newHP = Health - dmg;
@@ -34,42 +34,66 @@ public class Enemy : MonoBehaviour, IDamagable
 		Destroy(gameObject);
 	}
 
-
-
-	private void Start()
+    public void Rotate()
     {
-		playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-    }
+		if (target == null) return;
 
-    private void Attack()
-    {
-        var bullet = Instantiate(projectile, posGeneratorBullets.position, posGeneratorBullets.rotation);
-        bullet.GetComponent<EnemyBullet>().owner = gameObject;
-    }
+		Vector3 targetDirection = (target.transform.position - transform.position).normalized;
 
-    private void Update()
-    {
-        if (playerTransform == null) return;
-
-        transform.LookAt(playerTransform);
-
-        float distanceFromPlayer = Vector3.Distance(playerTransform.position, transform.position);
-
-        if (distanceFromPlayer < lineOfSight && distanceFromPlayer > shootingRange)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, playerTransform.position, speed * Time.deltaTime);
-        } 
-        else if (distanceFromPlayer <= shootingRange && nextFireTime < Time.time)
-        {
-            Attack();
-            nextFireTime = Time.time + fireRate;
-        }
-    }
-
-	private void OnDrawGizmosSelected()
-	{
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, lineOfSight);
-		Gizmos.DrawWireSphere(transform.position, shootingRange);
+		transform.rotation = Quaternion.LookRotation(targetDirection);
 	}
+
+	public void Move()
+	{
+		if (target == null) return;
+
+		var newPos = new Vector3(transform.forward.x, 0, transform.forward.z);
+		transform.position += newPos * Time.deltaTime * speed;
+	}
+
+	public void FinishWaypoint()
+	{
+		if (waypointHandler == null) return;
+
+		targetID++;
+		Debug.Log($"{targetID} {waypointHandler.waypoints.Count}");
+		if (waypointHandler.waypoints.Count <= targetID) return;
+
+		var waypoint = waypointHandler.waypoints[targetID];
+		if (waypoint == null) return;
+
+		Debug.Log($"c");
+
+		target = waypoint;
+		Rotate();
+	}
+	#endregion
+
+		#region Monobeh
+	private void Start()
+	{
+		waypointHandler = WaypointHandler.Instance;
+		if (waypointHandler == null) return;
+
+		target = waypointHandler.waypoints[targetID];
+		if (target == null) return;
+
+		Rotate();
+	}
+
+	private void Update()
+    {
+		Move();
+	}
+
+	public void OnTriggerEnter(Collider other)
+	{
+		var waypoint = other.GetComponent<Waypoint>();
+		Debug.Log("a");
+		if (waypoint == null || waypoint != target) return;
+		Debug.Log("b");
+
+		FinishWaypoint();
+	}
+	#endregion
 }
