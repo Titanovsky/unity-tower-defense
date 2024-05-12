@@ -56,20 +56,19 @@ public class Enemy : MonoBehaviour, IDamagable
 		if (waypointHandler == null) return;
 
 		targetID++;
-		Debug.Log($"{targetID} {waypointHandler.waypoints.Count}");
+		
 		if (waypointHandler.waypoints.Count <= targetID) return;
 
 		var waypoint = waypointHandler.waypoints[targetID];
 		if (waypoint == null) return;
 
-		Debug.Log($"c");
 
 		target = waypoint;
 		Rotate();
 	}
 	#endregion
 
-		#region Monobeh
+	#region Monobeh
 	private void Start()
 	{
 		waypointHandler = WaypointHandler.Instance;
@@ -89,9 +88,7 @@ public class Enemy : MonoBehaviour, IDamagable
 	public void OnTriggerEnter(Collider other)
 	{
 		var waypoint = other.GetComponent<Waypoint>();
-		Debug.Log("a");
 		if (waypoint == null || waypoint != target) return;
-		Debug.Log("b");
 
 		FinishWaypoint();
 	}
