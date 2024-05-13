@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 17174734}
   - component: {fileID: 17174733}
   - component: {fileID: 17174737}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -988,6 +988,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 564322948}
+  - component: {fileID: 564322952}
   - component: {fileID: 564322951}
   - component: {fileID: 564322950}
   - component: {fileID: 564322949}
@@ -1085,6 +1086,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 564322947}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &564322952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564322947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab19fedae5dea08488cae337d919298e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &655196519
 GameObject:
   m_ObjectHideFlags: 0
@@ -2898,6 +2911,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1962605223}
+  - component: {fileID: 1962605224}
+  - component: {fileID: 1962605225}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -2922,6 +2937,50 @@ Transform:
   - {fileID: 564322948}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1962605224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1962605222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b56b1bedb89c09f42b620e691c4702a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotator: {fileID: 564322952}
+  defaultRotationRotator: {x: 0, y: 0, z: 0, w: 0}
+  target: {fileID: 0}
+  nextTarget: {fileID: 0}
+  spawnProjectileTransform: {fileID: 1355839700}
+  projectilePrefab: {fileID: 1659845454975938687, guid: 0a7cce6ebb031e7458dbf53c5e6af124, type: 3}
+  projectileSpeed: 25
+  projectileDelay: 1
+  projectileTimerDelay: 0
+  projectileLifeTime: 2
+  projectileCanShoot: 1
+--- !u!135 &1962605225
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1962605222}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.64
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1972084649
 GameObject:
   m_ObjectHideFlags: 0

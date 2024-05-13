@@ -7,13 +7,11 @@ public class Bullet : MonoBehaviour
     void OnCollisionEnter(Collision col)
     {
         var obj = col.gameObject;
-        Enemy enemy;
-
-        if (obj.TryGetComponent(out enemy))
+        if (obj.TryGetComponent(out IDamagable objDamageInterface))
         {
             Destroy(gameObject);
 
-            enemy.TakeDamage(enemy.Damage, owner);
+			objDamageInterface.TakeDamage(objDamageInterface.Damage, owner);
 		}
     }
 }

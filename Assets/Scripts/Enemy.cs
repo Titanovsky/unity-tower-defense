@@ -1,12 +1,10 @@
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
-using static UnityEngine.UI.CanvasScaler;
 
 public class Enemy : MonoBehaviour, IDamagable
 {
 	#region Vars/Props
-	public float Health { get; set; } = 6f;
+	public float Health { get; set; } = 1f;
 	public float Damage { get; set; } = 1f;
 
 	public float speed = 0.1f;
@@ -14,6 +12,8 @@ public class Enemy : MonoBehaviour, IDamagable
     public Waypoint target;
     private WaypointHandler waypointHandler;
 	private int targetID = 0;
+
+	public event Action OnDead;
 	#endregion
 
 	#region IDamagable
@@ -39,6 +39,8 @@ public class Enemy : MonoBehaviour, IDamagable
 	public void Die()
 	{
 		Destroy(gameObject);
+
+		OnDead?.Invoke();
 	}
 	#endregion
 
