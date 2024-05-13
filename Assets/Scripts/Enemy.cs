@@ -1,11 +1,14 @@
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.UI.CanvasScaler;
 
 public class Enemy : MonoBehaviour, IDamagable
 {
 	#region Vars/Props
 	public float Health { get; set; } = 6f;
 	public float Damage { get; set; } = 1f;
+
 	public float speed = 0.1f;
 
     public Waypoint target;
@@ -13,11 +16,15 @@ public class Enemy : MonoBehaviour, IDamagable
 	private int targetID = 0;
 	#endregion
 
-	#region Logic
+	#region IDamagable
 	public void TakeDamage(float dmg)
 	{
 		float newHP = Health - dmg;
-		if (newHP > 0) { Health = newHP; return; }
+		if (newHP > 0) 
+		{
+			Health = newHP; 
+			return;
+		}
 
 		Die();
 	}
@@ -33,17 +40,30 @@ public class Enemy : MonoBehaviour, IDamagable
 	{
 		Destroy(gameObject);
 	}
+	#endregion
 
-    public void Rotate()
+	#region Logic
+	private void Init()
+	{
+		waypointHandler = WaypointHandler.Instance;
+		if (waypointHandler == null) return;
+		if (waypointHandler.waypoints.Count <= targetID) return;
+
+		target = waypointHandler.waypoints[targetID];
+
+		//Debug.Log($"Enemy {gameObject} initialized");
+	}
+
+	private void Rotate()
     {
 		if (target == null) return;
 
-		Vector3 targetDirection = (target.transform.position - transform.position).normalized;
+		transform.LookAt(target.transform);
 
-		transform.rotation = Quaternion.LookRotation(targetDirection);
+		//Debug.Log($"Rotated to {target}");
 	}
 
-	public void Move()
+	private void Move()
 	{
 		if (target == null) return;
 
@@ -51,32 +71,42 @@ public class Enemy : MonoBehaviour, IDamagable
 		transform.position += newPos * Time.deltaTime * speed;
 	}
 
-	public void FinishWaypoint()
+	private void SetTarget(Waypoint targetWaypoint)
+	{
+		target = targetWaypoint;
+
+		//Debug.Log($"Set target {target}");
+	}
+
+	private void RemoveTarget()
+	{
+		Waypoint oldTarget = target;
+
+		target = null;
+
+		//Debug.Log($"Removed target {oldTarget}");
+	}
+
+	private void FinishWaypoint()
 	{
 		if (waypointHandler == null) return;
 
+		RemoveTarget();
+
 		targetID++;
-		
 		if (waypointHandler.waypoints.Count <= targetID) return;
 
-		var waypoint = waypointHandler.waypoints[targetID];
-		if (waypoint == null) return;
+		//Debug.Log($"Finished Waypoint, next: {target}");
 
-
-		target = waypoint;
+		SetTarget(waypointHandler.waypoints[targetID]);
 		Rotate();
 	}
 	#endregion
 
-	#region Monobeh
+	#region MonoBehavior
 	private void Start()
 	{
-		waypointHandler = WaypointHandler.Instance;
-		if (waypointHandler == null) return;
-
-		target = waypointHandler.waypoints[targetID];
-		if (target == null) return;
-
+		Init();
 		Rotate();
 	}
 
@@ -85,10 +115,9 @@ public class Enemy : MonoBehaviour, IDamagable
 		Move();
 	}
 
-	public void OnTriggerEnter(Collider other)
+	private void OnTriggerEnter(Collider other)
 	{
-		var waypoint = other.GetComponent<Waypoint>();
-		if (waypoint == null || waypoint != target) return;
+		if (!other.TryGetComponent<Waypoint>(out var waypoint) || waypoint != target) return;
 
 		FinishWaypoint();
 	}
