@@ -4,8 +4,19 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IDamagable
 {
 	#region Vars/Props
-	public float Health { get; set; } = 1f;
-	public float Damage { get; set; } = 1f;
+	[SerializeField] private float _health = 1f;
+	public float Health 
+	{ 
+		get { return _health; }
+		set { _health = value; }
+	}
+
+	[SerializeField] private float _damage = 1f;
+	public float Damage
+	{
+		get { return _damage; }
+		set { _damage = value; }
+	}
 
 	public float speed = 0.1f;
 

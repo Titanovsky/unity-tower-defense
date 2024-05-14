@@ -4,7 +4,7 @@ public class Bullet : MonoBehaviour
 {
     public GameObject owner;
 
-    void OnCollisionEnter(Collision col)
+    private void OnTriggerEnter(Collider col)
     {
         var obj = col.gameObject;
         if (obj.TryGetComponent(out IDamagable objDamageInterface))
