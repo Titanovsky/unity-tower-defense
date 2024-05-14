@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour, IDamagable
 	private int targetID = 0;
 
 	public event Action OnDead;
+	public event Action OnChangedHealth;
 	#endregion
 
 	#region IDamagable
