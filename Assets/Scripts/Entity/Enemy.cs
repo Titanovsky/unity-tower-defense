@@ -7,8 +7,18 @@ public class Enemy : MonoBehaviour, IDamagable
 	[SerializeField] private float _health = 1f;
 	public float Health 
 	{ 
-		get { return _health; }
-		set { _health = value; }
+		get 
+		{ 
+			return _health; 
+		}
+
+		set 
+		{ 
+			float oldHealth = _health;
+			_health = value;
+
+			OnChangedHealth?.Invoke(_health, oldHealth);
+		}
 	}
 
 	[SerializeField] private float _damage = 1f;
@@ -25,7 +35,7 @@ public class Enemy : MonoBehaviour, IDamagable
 	private int targetID = 0;
 
 	public event Action OnDead;
-	public event Action OnChangedHealth;
+	public event Action<float, float> OnChangedHealth;
 	#endregion
 
 	#region IDamagable
