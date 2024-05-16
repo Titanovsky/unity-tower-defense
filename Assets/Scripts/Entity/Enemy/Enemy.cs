@@ -27,6 +27,8 @@ public class Enemy : MonoBehaviour, IDamagable
 		get { return _damage; }
 		set { _damage = value; }
 	}
+	public event Action OnDead;
+	public event Action<float, float> OnChangedHealth;
 
 	public float speed = 0.1f;
 
@@ -34,8 +36,7 @@ public class Enemy : MonoBehaviour, IDamagable
     private WaypointHandler waypointHandler;
 	private int targetID = 0;
 
-	public event Action OnDead;
-	public event Action<float, float> OnChangedHealth;
+	private Player ply;
 	#endregion
 
 	#region IDamagable
@@ -55,7 +56,7 @@ public class Enemy : MonoBehaviour, IDamagable
 	{
 		TakeDamage(dmg);
 
-		Debug.Log($"Attacker {attacker} gave {dmg} damage to enemy");
+		Debug.Log($"Attacker {attacker} gave {dmg} damage to {this}");
 	}
 
 	public void Die()
@@ -76,6 +77,17 @@ public class Enemy : MonoBehaviour, IDamagable
 		target = waypointHandler.waypoints[targetID];
 
 		//Debug.Log($"Enemy {gameObject} initialized");
+	}
+
+	private void AddMoneyForDie()
+	{
+		OnDead += () => 
+		{
+			if (ply == null)
+				ply = Player.Instance;
+
+			ply.Money += 20f; //todo change constant 
+		};
 	}
 
 	private void Rotate()
@@ -132,6 +144,7 @@ public class Enemy : MonoBehaviour, IDamagable
 	{
 		Init();
 		Rotate();
+		AddMoneyForDie();
 	}
 
 	private void Update()

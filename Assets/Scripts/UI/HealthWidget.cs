@@ -25,7 +25,10 @@ public class HealthWidget : MonoBehaviour
 	#region Component
 	private void Start()
     {
-        maxHealth = damagable.Health;
+		if (damagable == null)
+			damagable = GetComponentInParent<IDamagable>();
+
+		maxHealth = damagable.Health;
         wMaxSizePanel = imgHealth.rectTransform.sizeDelta.x;
 		hMaxSizePanel = imgHealth.rectTransform.sizeDelta.y;
 
