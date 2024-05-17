@@ -72,8 +72,6 @@ public class Castle : MonoBehaviour, IDamagable
 		// плохой пример, в одной системе делаем подписку на ивент, который можем переписать в Die (из-за интерфейсов такое)
 		OnDead += () => 
 		{
-			Debug.Log($"Yes yes");
-
 			if (string.IsNullOrEmpty(sceneFail)) return;
 
 			SceneManager.LoadScene(sceneFail);

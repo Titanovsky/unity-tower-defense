@@ -31,6 +31,7 @@ public class Enemy : MonoBehaviour, IDamagable
 	public event Action<float, float> OnChangedHealth;
 
 	public float speed = 0.1f;
+	public float MoneyReward = 0f;
 
     public Waypoint target;
     private WaypointHandler waypointHandler;
@@ -86,7 +87,7 @@ public class Enemy : MonoBehaviour, IDamagable
 			if (ply == null)
 				ply = Player.Instance;
 
-			ply.Money += 20f; //todo change constant 
+			ply.Money += MoneyReward; //todo change constant 
 		};
 	}
 
