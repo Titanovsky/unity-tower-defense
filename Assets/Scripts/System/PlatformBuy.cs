@@ -8,13 +8,14 @@ public class PlatformBuy : MonoBehaviour
     public float cost = 0f;
 
 	public Text textCost;
-    public float addPosX = 10f;
-	public float addPosY = 50f;
+    public float addPosX = -20f;
+	public float addPosY = 14f;
 
     public Button buttonBuy;
 
 	public GameObject towerPrefab;
     public float angleZ = 0f;
+    public float addHeightTower = 2.5f;
 
     private Player ply;
 
@@ -38,16 +39,17 @@ public class PlatformBuy : MonoBehaviour
 
         GameObject obj = Instantiate(towerPrefab, transform.position, Quaternion.identity);
         obj.transform.rotation = new Quaternion(obj.transform.rotation.x, obj.transform.rotation.y, angleZ, obj.transform.rotation.w);
+        obj.transform.position = transform.position + new Vector3(0, addHeightTower, 0);
 	}
 
     public void SetupPositionUI()
     {
         if (mainCamera == null) return;
 
-        Vector3 pos = mainCamera.ScreenToWorldPoint(transform.position);
+        Vector3 pos = RectTransformUtility.WorldToScreenPoint(mainCamera, transform.position);
 
         Vector3 posText = new(pos.x + addPosX, pos.y + addPosY, pos.z);
-        textCost.rectTransform.position = posText;
+        textCost.transform.position = posText;
 
 		buttonBuy.transform.position = pos;
 	}
