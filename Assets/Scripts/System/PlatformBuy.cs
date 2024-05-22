@@ -50,6 +50,7 @@ public class PlatformBuy : MonoBehaviour
 
         Vector3 posText = new(pos.x + addPosX, pos.y + addPosY, pos.z);
         textCost.transform.position = posText;
+        textCost.text = $"{cost}$";
 
 		buttonBuy.transform.position = pos;
 	}
