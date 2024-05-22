@@ -60,7 +60,7 @@ public class PlatformBuy : MonoBehaviour
 	{
         ply = Player.Instance;
 
-        if (mainCamera == null)
+        if (mainCamera == null && ply.mainCamera != null)
             mainCamera = ply.mainCamera;
 
 		SetupPositionUI();
