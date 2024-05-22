@@ -900,6 +900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 096599a0d5c809c44b8393eb68d365dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 963194227}
   _money: 0
 --- !u!114 &655196523
 MonoBehaviour:
@@ -914,11 +915,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneWin: WinScene
+  delayTheFirstWave: 3.4
   delayWave: 10
   spawnEnemy: {fileID: 505977184}
   enemyPrefab: {fileID: 8030972787507189016, guid: de3d1106dc48fc246a59373eec7ce795, type: 3}
   spawnDelay: 1
   spawnEnable: 1
+  randomColors:
+  - serializedVersion: 2
+    rgba: 4474099
+  - serializedVersion: 2
+    rgba: 6419385
+  - serializedVersion: 2
+    rgba: 16737381
+  color:
+    serializedVersion: 2
+    rgba: 4278190335
+  enemyDataHealthMultiply: 1
+  enemyDataSpeedMultiply: 0.35
+  enemyDataRewardMultiply: 5
+  enemyDataMaxOnWaveMultiply: 1
 --- !u!1 &674106624
 GameObject:
   m_ObjectHideFlags: 0
@@ -2310,8 +2326,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 0
   textCost: {fileID: 1436250535}
-  addPosX: -20
-  addPosY: 14
+  addPosX: -16
+  addPosY: 11
   buttonBuy: {fileID: 1097412272}
   towerPrefab: {fileID: 1765186474565429080, guid: 34eed2bfcceba514cb54793aea15484f, type: 3}
   angleZ: 0
@@ -2847,63 +2863,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &4131063790964878836
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 830144154617466591, guid: 34eed2bfcceba514cb54793aea15484f, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -10.68
-      objectReference: {fileID: 0}
-    - target: {fileID: 830144154617466591, guid: 34eed2bfcceba514cb54793aea15484f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.357
-      objectReference: {fileID: 0}
-    - target: {fileID: 830144154617466591, guid: 34eed2bfcceba514cb54793aea15484f, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -3.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 830144154617466591, guid: 34eed2bfcceba514cb54793aea15484f, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 830144154617466591, guid: 34eed2bfcceba514cb54793aea15484f, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 830144154617466591, guid: 34eed2bfcceba514cb54793aea15484f, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 830144154617466591, guid: 34eed2bfcceba514cb54793aea15484f, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 830144154617466591, guid: 34eed2bfcceba514cb54793aea15484f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 830144154617466591, guid: 34eed2bfcceba514cb54793aea15484f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 830144154617466591, guid: 34eed2bfcceba514cb54793aea15484f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1765186474565429080, guid: 34eed2bfcceba514cb54793aea15484f, type: 3}
-      propertyPath: m_Name
-      value: Tower
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 34eed2bfcceba514cb54793aea15484f, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2913,7 +2872,6 @@ SceneRoots:
   - {fileID: 655196521}
   - {fileID: 1972084652}
   - {fileID: 1574231177}
-  - {fileID: 4131063790964878836}
   - {fileID: 94912106}
   - {fileID: 99921405}
   - {fileID: 1595474783}

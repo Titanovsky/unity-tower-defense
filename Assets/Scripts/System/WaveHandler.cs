@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class WaveHandler : MonoBehaviour
@@ -7,16 +8,25 @@ public class WaveHandler : MonoBehaviour
 
     public string sceneWin;
 
-    public float delayWave = 10f;
+	public float delayTheFirstWave = 3.4f;
+	public float delayWave = 10f;
 
 	public Transform spawnEnemy;
 	public GameObject enemyPrefab;
 	public float spawnDelay = 1f;
 	public bool spawnEnable = true;
-	private float enemyDataHealth = 1;
-	private float enemyDataSpeed = 1;
-	private float enemyDataReward = 5;
+	public List<Color32> randomColors = new();
+	public Color32 color = new Color32(255, 0, 0, 255);
+
+	public float enemyDataHealthMultiply = 3f;
+	private float enemyDataHealth = 1f;
+	public float enemyDataSpeedMultiply = .25f;
+	private float enemyDataSpeed = 1f;
+	public float enemyDataRewardMultiply = 5f;
+	private float enemyDataReward = 5f;
+	public int enemyDataMaxOnWaveMultiply = 2;
 	private int enemyDataMaxOnWave = 1;
+
 	private int enemySpawnedCount = 0;
 	private int enemySpawnedKilled = 0;
 	#endregion
@@ -49,11 +59,13 @@ public class WaveHandler : MonoBehaviour
 
 	private void SetupEnemyData()
 	{
-		//todo to ReadOnly 
-		enemyDataHealth = 1f * Wave;
-		enemyDataSpeed = 1f + .25f * Wave;
-		enemyDataReward = 5f * Wave;
-		enemyDataMaxOnWave = 2 * Wave;
+		enemyDataHealth = enemyDataHealthMultiply * Wave;
+		enemyDataSpeed = enemyDataSpeedMultiply * Wave;
+		enemyDataReward = enemyDataRewardMultiply * Wave;
+		enemyDataMaxOnWave = enemyDataMaxOnWaveMultiply * Wave;
+
+		if (randomColors.Count > 0)
+			color = randomColors[Random.Range(0, randomColors.Count - 1)];
 	}
 
 	private void SpawnEnemy()
@@ -71,8 +83,10 @@ public class WaveHandler : MonoBehaviour
 
 		IDamagable damagable = enemy;
 		damagable.Health = enemyDataHealth;
-
 		damagable.OnDead += NextWave;
+
+		MeshRenderer model = obj.GetComponent<MeshRenderer>();
+		model.material.color = color;
 
 		enemySpawnedCount++;
 	}
@@ -81,7 +95,7 @@ public class WaveHandler : MonoBehaviour
 	#region Component
 	private void Start()
     {
-		StartWave();
+		Invoke(nameof(StartWave), delayTheFirstWave);
 	}
 
     private void Update()
