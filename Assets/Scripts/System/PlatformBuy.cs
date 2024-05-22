@@ -15,7 +15,7 @@ public class PlatformBuy : MonoBehaviour
 
 	public GameObject towerPrefab;
     public float angleZ = 0f;
-    public float addHeightTower = 2.5f;
+    public float addHeightTower = 0.43f;
 
     private Player ply;
 
@@ -60,7 +60,10 @@ public class PlatformBuy : MonoBehaviour
 	{
         ply = Player.Instance;
 
-        SetupPositionUI();
+        if (mainCamera == null)
+            mainCamera = ply.mainCamera;
+
+		SetupPositionUI();
 	}
 	#endregion
 }
