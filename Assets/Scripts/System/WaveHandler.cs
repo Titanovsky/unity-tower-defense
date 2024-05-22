@@ -1,10 +1,14 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class WaveHandler : MonoBehaviour
 {
-	#region Vars/Props
-	public int Wave { get; private set; } = 1;
+    #region Vars/Props
+    public static WaveHandler Instance { get; private set; }
+
+    public int Wave { get; private set; } = 1;
+	public event Action OnNextWave;
 
     public string sceneWin;
 
@@ -55,6 +59,8 @@ public class WaveHandler : MonoBehaviour
 		Wave++;
 
 		Invoke(nameof(StartWave), delayWave);
+
+		OnNextWave?.Invoke();
 	}
 
 	private void SetupEnemyData()
@@ -65,7 +71,7 @@ public class WaveHandler : MonoBehaviour
 		enemyDataMaxOnWave = enemyDataMaxOnWaveMultiply * Wave;
 
 		if (randomColors.Count > 0)
-			color = randomColors[Random.Range(0, randomColors.Count - 1)];
+			color = randomColors[UnityEngine.Random.Range(0, randomColors.Count - 1)];
 	}
 
 	private void SpawnEnemy()
@@ -93,14 +99,15 @@ public class WaveHandler : MonoBehaviour
 	#endregion
 
 	#region Component
+	private void Awake()
+	{
+		if (Instance == null)
+			Instance = this;
+	}
+
 	private void Start()
     {
 		Invoke(nameof(StartWave), delayTheFirstWave);
 	}
-
-    private void Update()
-    {
-        
-    }
 	#endregion
 }
