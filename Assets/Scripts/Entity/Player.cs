@@ -1,10 +1,13 @@
 using System;
+using UnityEditor.SearchService;
 using UnityEngine; 
 
 public class Player : MonoBehaviour
 {
 	#region Vars/Props
-	public static Player Instance;
+	public static Player Instance { get; private set; }
+
+	public Camera mainCamera;
 
 	public uint Frags { get; set; } = 0;
 
@@ -29,7 +32,11 @@ public class Player : MonoBehaviour
 	#region Component
 	private void Awake()
 	{
-		if (Instance == null) Instance = this;
+		if (Instance == null) 
+			Instance = this;
+
+		if (mainCamera == null)
+			Debug.LogError($"[Player] mainCamera is null");
 	}
 	#endregion
 }

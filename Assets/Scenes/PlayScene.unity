@@ -2078,7 +2078,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1436250533}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.0000016433409}
+  m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2086,7 +2086,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00006185286, y: 0.1}
+  m_AnchoredPosition: {x: -0.00006185286, y: -37}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1436250535
@@ -2315,7 +2315,7 @@ MonoBehaviour:
   buttonBuy: {fileID: 1097412272}
   towerPrefab: {fileID: 1765186474565429080, guid: 34eed2bfcceba514cb54793aea15484f, type: 3}
   angleZ: 0
-  addHeightTower: 0.4
+  addHeightTower: 0.44
   mainCamera: {fileID: 963194227}
 --- !u!1 &1683593713
 GameObject:
