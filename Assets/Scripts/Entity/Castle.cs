@@ -90,7 +90,9 @@ public class Castle : MonoBehaviour, IDamagable
 		var obj = other.gameObject;
 
 		TakeDamage(obj.GetComponent<IDamagable>().Damage, obj);
-		Destroy(obj);
+
+		IDamagable damagable = enemy;
+		enemy.Die();
 	}
 	#endregion
 }
