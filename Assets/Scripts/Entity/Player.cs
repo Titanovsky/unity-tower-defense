@@ -1,5 +1,4 @@
 using System;
-using UnityEditor.SearchService;
 using UnityEngine; 
 
 public class Player : MonoBehaviour
