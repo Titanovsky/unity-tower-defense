@@ -87,11 +87,9 @@ public class Castle : MonoBehaviour, IDamagable
 	{
 		if (!other.TryGetComponent<Enemy>(out var enemy)) return;
 
-		var obj = other.gameObject;
-
-		TakeDamage(obj.GetComponent<IDamagable>().Damage, obj);
-
+		enemy.MoneyReward = 0f; // костыль
 		IDamagable damagable = enemy;
+		TakeDamage(damagable.Damage, enemy);
 		enemy.Die();
 	}
 	#endregion
