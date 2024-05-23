@@ -740,7 +740,7 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4278190335
   enemyDataHealthMultiply: 1
-  enemyDataSpeedMultiply: 7
+  enemyDataSpeedMultiply: 0.45
   enemyDataRewardMultiply: 5
   enemyDataMaxOnWaveMultiply: 1
 --- !u!1 &674106624
