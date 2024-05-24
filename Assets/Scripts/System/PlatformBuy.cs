@@ -31,7 +31,7 @@ public class PlatformBuy : MonoBehaviour
 
         SpawnTower();
         Destroy(gameObject);
-    }
+    } //
 
     public void SpawnTower()
     {
